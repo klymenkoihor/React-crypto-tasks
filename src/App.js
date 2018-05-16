@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import SocketChart from './components/SocketChart'
 import Websocket from 'react-websocket';
-
+import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends Component {
 
