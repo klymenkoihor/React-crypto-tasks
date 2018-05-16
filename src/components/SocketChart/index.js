@@ -8,10 +8,10 @@ class SocketChart extends Component {
         //const {...props} = this.props; - чомусь не відпрацьовує так(
         const {labels} = this.props; // а так відпрацьовує)
         return (
-            <div style={{width:'50%'}}>
+            <div style={{width:'100%'}}>
                 <Line
                     width={50}
-                    height={30}
+                    height={20}
                     data={{
                         labels,
                         datasets: [

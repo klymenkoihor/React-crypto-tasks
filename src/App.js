@@ -36,7 +36,7 @@ class App extends Component {
 
     render(){
         return (
-            <div className="App">
+            <div className="container">
                     <Websocket url='wss://api.gemini.com/v1/marketdata/btcusd'
                          onMessage={this.handleData.bind(this)}/>
                 <SocketChart
