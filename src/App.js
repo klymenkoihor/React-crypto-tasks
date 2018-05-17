@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SocketChart from './components/SocketChart'
 import Websocket from 'react-websocket';
@@ -8,12 +7,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 class App extends Component {
 
     state={
-        socketChartLabels:[],
-        socketChartData:[]
-    }
+        socketChart:{
+            labels:[],
+            data:[]
+        },
 
-    socketData = []
-    socketLabels = []
+        /*historicChartLabels:[],
+        historicChartData:[]*/
+    };
+
+    socketData = [];
+    socketLabels = [];
 
     handleData(event){
         let result = JSON.parse(event);
@@ -28,10 +32,21 @@ class App extends Component {
             this.socketLabels.shift();
         }
 
-        this.setState({
-            socketChartLabels: [...this.socketLabels],
-            socketChartData: [...this.socketData]
-        });
+        let socketChartForStateData = {
+            socketChart:{
+                labels: [...this.socketLabels],
+                data: [...this.socketData]
+            }
+        };
+
+        this.setState(Object.assign(this.state, socketChartForStateData));
+
+        /*this.setState({
+            socketChart:{
+                labels: [...this.socketLabels],
+                data: [...this.socketData]
+            }
+        });*/
     }
 
     render(){
@@ -40,8 +55,8 @@ class App extends Component {
                     <Websocket url='wss://api.gemini.com/v1/marketdata/btcusd'
                          onMessage={this.handleData.bind(this)}/>
                 <SocketChart
-                    labels={this.state.socketChartLabels}
-                    data={this.state.socketChartData}
+                    labels={this.state.socketChart.labels}
+                    data={this.state.socketChart.data}
                     titleFontSize="50"
                     chartTitle="Current Bitcoin Dynamic"
                 />
@@ -51,3 +66,6 @@ class App extends Component {
 }
 
 export default App;
+
+
+
