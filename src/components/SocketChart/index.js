@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 
-
 class SocketChart extends Component {
 
     render() {
         //const {...props} = this.props; - чомусь не відпрацьовує так(
-        const {labels} = this.props; // а так відпрацьовує)
+        const {labels, data, chartTitle, titleFontSize} = this.props; // а так відпрацьовує)
         return (
             <div style={{width:'100%'}}>
                 <Line
@@ -17,15 +16,15 @@ class SocketChart extends Component {
                         datasets: [
                             {
                                 label: 'BTC',
-                                data: this.props.data
+                                data
                             }
                         ]
                     }}
                     options={{
                         title: {
                             display: true,
-                            text: this.props.chartTitle,
-                            fontSize: this.props.titleFontSize
+                            text: chartTitle,
+                            fontSize: titleFontSize
                         },
                         layout: {
                             padding: '300px',
@@ -38,7 +37,6 @@ class SocketChart extends Component {
                             text: 'BTC'
                         }
                     }}
-
                 />
             </div>
         )
