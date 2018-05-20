@@ -4,8 +4,6 @@ import { render } from 'react-dom'
 import { Form, Field } from 'react-final-form'
 
 
-//const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
 const Calculator = ({ onSend, currency, crypto, count, result }) => (
 
     <div  className="card">

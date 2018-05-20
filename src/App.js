@@ -24,10 +24,6 @@ class App extends Component {
         const {cryptoCurrency, currency, quantity} = values;
         console.log("destruct", cryptoCurrency, currency, quantity);
 
-        /*const URL = "https://api.coindesk.com/v1/bpi/historical/close.json";
-        let currencyRequest = await fetch(`${URL}?start=${prevDay}&end=${curDay}`);
-        let {bpi} = await currencyRequest.json();*/
-
         const URL = "https://min-api.cryptocompare.com/data/price";
         let currencyRequest = await fetch(`${URL}?fsym=${cryptoCurrency}&tsyms=${currency}`);
         let res = await currencyRequest.json();
@@ -37,15 +33,10 @@ class App extends Component {
         console.log(data);
         Object.assign(this.state, {calculator:{currency:currency, crypto:cryptoCurrency, count: quantity, result:data}});
 
-
         /*fetch(`https://min-api.cryptocompare.com/data/pricemulti?fsym=${cryptoCurrency}&tsyms=${currency}`).
         then(results => results.json()).
         then(results => {Object.assign(this.state, results)});
         console.log(this.state);*/
-
-
-
-
     }
 
 
