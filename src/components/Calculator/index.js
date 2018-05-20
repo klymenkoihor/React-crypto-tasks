@@ -1,175 +1,84 @@
-/*import React from 'react'
+import React from 'react'
 import { render } from 'react-dom'
 //import Styles from './Styles'
 import { Form, Field } from 'react-final-form'
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const Calculator = ({ onSubmit }) => (
-    <div>
-        <h1>Cryptocurrency Converter Calculator</h1>
-        <Form
-            onSubmit={onSubmit}
-            render={({ handleSubmit, reset, submitting, pristine, values }) => (
-                <form onSubmit={handleSubmit}>
+//const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-                    <div>
-                        <Field
-                            name="quantity"
-                            component="input"
-                            type="text"
-                            placeholder="Enter quantity"
-                        />
-                    </div>
-                    <div>
-                        <Field name="cryptoCurrency" component="select">
-                            <option value="">Choose crypto</option>
-                            <option value="BTC">Bitcoin</option>
-                            <option value="ETH">Ethereum</option>
-                            <option value="XRP">Ripple</option>
-                            <option value="BCH">Bitcoin Cash</option>
-                            <option value="LTC">Litecoin</option>
-                            <option value="XMR">Monero</option>
-                        </Field>
-                    </div>
-                    <div className="buttons">
-                        <button type="submit" disabled={submitting || pristine}>
-                            =
-                        </button>
-                    </div>
-                    <div>
-                        <Field name="currency" component="select">
-                            <option value="">Choose currency</option>
-                            <option value="USD">USD</option>
-                            <option value="EUR">EUR</option>
-                            <option value="GBP">GBP</option>
-                        </Field>
-                    </div>
+const Calculator = ({ onSend, currency, crypto, count, result }) => (
 
-                    <div>
-                        {values.quantity}
-                    </div>
-                    <div>
-                        {values.cryptoCurrency}
-                    </div>
-
-                    <div>
-                        <span>=</span>
-                    </div>
-
-                    <div>
-                        <span>
-                            {values.currency}
-                        </span>
-                    </div>
-
-                    <pre>{JSON.stringify(values, 0, 2)}</pre>
-                </form>
-            )}
-        />
+    <div  className="card">
+        {console.log(currency, crypto, count, result)}
+        <h2 className="text-muted text-center">Cryptocurrency Converter Calculator</h2>
+        <div className="col-md-6 offset-md-3">
+            <Form
+                className=""
+                onSubmit={onSend}
+                render={({ handleSubmit, reset, submitting, pristine, values }) => (
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <Field
+                                name="quantity"
+                                component="input"
+                                type="number"
+                                placeholder="Enter quantity"
+                                className="form-control"
+                                required
+                            />
+                        </div>
+                        <div className="form-inline justify-content-between mt-3">
+                            <div className="col-5 text-left"   style={{padding:0}}>
+                                <Field
+                                    name="cryptoCurrency"
+                                    component="select"
+                                    className="form-control"
+                                    required
+                                    style={{width:"170px"}}
+                                >
+                                    <option value="">Choose crypto</option>
+                                    <option value="BTC">Bitcoin</option>
+                                    <option value="ETH">Ethereum</option>
+                                    <option value="XRP">Ripple</option>
+                                    <option value="BCH">Bitcoin Cash</option>
+                                    <option value="LTC">Litecoin</option>
+                                    <option value="XMR">Monero</option>
+                                </Field>
+                            </div>
+                            <div className="col-2 text-center">
+                                <button type="submit" disabled={submitting || pristine} className="btn btn-secondary">
+                                    =
+                                </button>
+                            </div>
+                            <div className="col-5 text-right" style={{padding:0}}>
+                                <Field
+                                    name="currency"
+                                    component="select"
+                                    className="form-control"
+                                    required
+                                    style={{width:"170px"}}
+                                >
+                                    <option value="">Choose currency</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="GBP">GBP</option>
+                                </Field>
+                            </div>
+                        </div>
+                        <div className="form-inline justify-content-between mt-3 mb-3">
+                            <div className="col-md-4 text-right">
+                                {count} {crypto}
+                            </div>
+                            <div className="col-md-4 text-center">=</div>
+                            <div className="col-md-4 text-left">
+                                {result} {currency}
+                            </div>
+                        </div>
+                    </form>
+                )}
+            />
+        </div>
     </div>
 )
 
-export default Calculator;*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//----------------------------------------
-/*
-
-import React, {Component} from 'react';
-import {render} from 'react-dom';
-
-const onSubmit = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=${crypto}&tsyms=${currency}`);
-const { !!! } = await onSubmit.json();
-
-const CalcForm = ()=>{
-    <h2>Cryptocurrency Converter Calculator</h2>
-    <Form
-        onSubmit={onSubmit}
-        render={({handleSubmit, values})=>{
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <Field
-                        name="firstName"
-                        component="input"
-                        type="text"
-                        placeholder="First Name"
-                    />
-                </div>
-                <div>
-                    <Field name="cryptoCurrency" component="select">
-                        <option />
-                        <option value="BTC">Bitcoin</option>
-                        <option value="ETH">Ethereum</option>
-                        <option value="XRP">Ripple</option>
-                        <option value="BCH">Bitcoin Cash</option>
-                        <option value="LTC">Litecoin</option>
-                        <option value="XMR">Monero</option>
-
-                    </Field>
-                </div>
-
-
-                <div className="buttons">
-                    <button type="submit" disabled={submitting || pristine}>
-                        =
-                    </button>
-                </div>
-
-                <div>
-                    <Field name="favoriteColor" component="select">
-                        <option />
-                        <option value="USD">USD</option>
-                        <option value="EUR">EUR</option>
-                        <option value="GBP">GBP</option>
-                    </Field>
-                </div>
-
-                <div>
-                    <span>
-
-                    </span>
-                </div>
-
-                <div>
-                    <span>=</span>
-                </div>
-
-                <div>
-                    <span>
-
-                    </span>
-                </div>
-
-            </form>
-        }
-    ///>
-}
-
-
-// https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD
-
-<form action="">
-    title
-
-    select number
-    select crypto
-    button
-    select cur
-    text crypto
-    text cur
-</form>
-*/
+export default Calculator;

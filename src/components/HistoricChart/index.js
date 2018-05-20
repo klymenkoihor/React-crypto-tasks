@@ -11,8 +11,8 @@ class HistoricChart extends Component {
         //const {...props} = this.props; - чомусь не відпрацьовує так(
         const {labels, data, chartTitle, titleFontSize} = this.props; // а так відпрацьовує)
         return(
-            <div>
-                <select onChange={this.onChange.bind(this)}>
+            <div className="mt-5 card text-center" style={{width:'100%'}}>
+                <select onChange={this.onChange.bind(this)} className="form-control col-md-3">
                     <option value="noValue">Choose value</option>
                     <option value="day">Day</option>
                     <option value="month">Month</option>
@@ -34,7 +34,9 @@ class HistoricChart extends Component {
                         title: {
                             display: true,
                             text: chartTitle,
-                            fontSize: titleFontSize
+                            fontSize: titleFontSize,
+                            fontWeight: "lighter",
+                            fontColor: "grey"
                         },
                         layout: {
                             padding: '300px',

@@ -19,31 +19,37 @@ class App extends Component {
 
 //------Calculator------
 
-    /*onSubmit(values, request){
-        console.log("vals", values);
-        const {cryptoCurrency, currency} = values;
-        console.log("destruct", cryptoCurrency, currency);
+    async onSubmit(values){
+        //console.log("vals", values);
+        const {cryptoCurrency, currency, quantity} = values;
+        console.log("destruct", cryptoCurrency, currency, quantity);
+
+        /*const URL = "https://api.coindesk.com/v1/bpi/historical/close.json";
+        let currencyRequest = await fetch(`${URL}?start=${prevDay}&end=${curDay}`);
+        let {bpi} = await currencyRequest.json();*/
+
+        const URL = "https://min-api.cryptocompare.com/data/price";
+        let currencyRequest = await fetch(`${URL}?fsym=${cryptoCurrency}&tsyms=${currency}`);
+        let res = await currencyRequest.json();
+        //console.log(res[currency]);
+
+        let data = (res[currency] * quantity).toFixed(2);
+        console.log(data);
+        Object.assign(this.state, {calculator:{currency:currency, crypto:cryptoCurrency, count: quantity, result:data}});
 
 
-        fetch(`https://min-api.cryptocompare.com/data/pricemulti?fsym=${cryptoCurrency}&tsyms=${currency}`).
+        /*fetch(`https://min-api.cryptocompare.com/data/pricemulti?fsym=${cryptoCurrency}&tsyms=${currency}`).
         then(results => results.json()).
         then(results => {Object.assign(this.state, results)});
-        //console.log(this.state);
+        console.log(this.state);*/
 
-        //request(cryptoCurrency, currency);
 
-        /!*currencyRequest = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=${this.cryptoCurrency}&tsyms=${this.currency}`);
-        result = await currencyRequest.json();
-        console.log(result);*!/
+
+
     }
 
-    request = async (cryptoCurrency, currency) => {
-        const response = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=${cryptoCurrency}&tsyms=${currency}`);
-        const json = await response.json();
-        console.log("AJAX", json);
-    };*/
 
-//-----HistoricChart----
+//-----HistoricChart-----
 
     async onTimeChange(period){
         const data = {historicChart:{
@@ -163,19 +169,29 @@ class App extends Component {
     render(){
         return (
             <div className="container">
+                <h1 className="jumbotron text-muted text-center">Crypto page</h1>
+                <Calculator
+                    onSend={this.onSubmit.bind(this)}
+                    result={this.state.calculator.result}
+                    count={this.state.calculator.count}
+                    currency={this.state.calculator.currency}
+                    crypto={this.state.calculator.crypto}
+                    className="row mt-0"
+                />
                 <HistoricChart
                     onChange={this.onTimeChange.bind(this)}
                     labels={this.state.historicChart.labels}
                     data={this.state.historicChart.data}
-                    titleFontSize="50"
+                    titleFontSize="30"
                     chartTitle="Historic Bitcoin Dynamic"
                 />
                 <Websocket url='wss://api.gemini.com/v1/marketdata/btcusd' onMessage={this.handleData.bind(this)}/>
                 <SocketChart
                     labels={this.state.socketChart.labels}
                     data={this.state.socketChart.data}
-                    titleFontSize="50"
+                    titleFontSize="30"
                     chartTitle="Current Bitcoin Dynamic"
+                    className="row"
                 />
             </div>
         );

@@ -7,7 +7,7 @@ class SocketChart extends Component {
         //const {...props} = this.props; - чомусь не відпрацьовує так(
         const {labels, data, chartTitle, titleFontSize} = this.props; // а так відпрацьовує)
         return (
-            <div style={{width:'100%'}}>
+            <div className="mt-5 card text-center" style={{width:'100%'}}>
                 <Line
                     width={50}
                     height={20}
@@ -24,7 +24,9 @@ class SocketChart extends Component {
                         title: {
                             display: true,
                             text: chartTitle,
-                            fontSize: titleFontSize
+                            fontSize: titleFontSize,
+                            fontWeight: "lighter",
+                            fontColor: "grey"
                         },
                         layout: {
                             padding: '300px',
