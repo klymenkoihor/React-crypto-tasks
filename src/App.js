@@ -52,7 +52,6 @@ class App extends Component {
 
 //------Calculator------
 
-
     async onSubmit(values){
         //console.log("vals", values);
         const {cryptoCurrency, currency, quantity} = values;
@@ -72,7 +71,6 @@ class App extends Component {
         then(results => {Object.assign(this.state, results)});
         console.log(this.state);*/
     }
-
 
 //-----HistoricChart-----
 
