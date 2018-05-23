@@ -104,6 +104,7 @@ class App extends Component {
             prevDay = new Date(currentMilliseconds - YEAR_MILLISECONDS).toISOString().slice(0, 10);
         }
 
+        //https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=24
         const URL = "https://api.coindesk.com/v1/bpi/historical/close.json";
         let currencyRequest = await fetch(`${URL}?start=${prevDay}&end=${curDay}`);
         let {bpi} = await currencyRequest.json();
