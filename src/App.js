@@ -74,34 +74,41 @@ class App extends Component {
 
 //-----HistoricChart-----
 
-    async onTimeChange(period){
-        const data = {historicChart:{
-            time:period
-        }};
+    onTimeChange(period){
+        let startFinishDates = this.getStartFinishDates(period);
+        this.getData(startFinishDates, period);
+    };
 
+    getStartFinishDates(date){
         const YEAR_MILLISECONDS = 31536000000,
-            MONTH_MILLISECONDS = 2628000000,
-            DAY_MILLISECONDS = 86400000;
+        MONTH_MILLISECONDS = 2628000000,
+        DAY_MILLISECONDS = 86400000;
 
         let currentMilliseconds = Date.now();
 
-        let curDay = new Date(currentMilliseconds).toISOString().slice(0, 10);
-        let prevDay = '';
+        let startFinishDates = [];
+        startFinishDates.push(new Date(currentMilliseconds).toISOString().slice(0, 10));
 
-        if(period === "day") {
-            prevDay = new Date(currentMilliseconds - DAY_MILLISECONDS).toISOString().slice(0, 10);
-        } else if (period === "month") {
-            prevDay = new Date(currentMilliseconds - MONTH_MILLISECONDS).toISOString().slice(0, 10);
-        } else if (period === "year") {
-            prevDay = new Date(currentMilliseconds - YEAR_MILLISECONDS).toISOString().slice(0, 10);
+        let prevDate = '';
+        if(date === "day") {
+            prevDate = new Date(currentMilliseconds - DAY_MILLISECONDS).toISOString().slice(0, 10);
+        } else if (date === "month") {
+            prevDate = new Date(currentMilliseconds - MONTH_MILLISECONDS).toISOString().slice(0, 10);
+        } else if (date === "year") {
+            prevDate = new Date(currentMilliseconds - YEAR_MILLISECONDS).toISOString().slice(0, 10);
         }
+        startFinishDates.push(prevDate);
 
+        return startFinishDates;
+    }
+
+    async getData(dates, period){
         //https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=24
         const URL = "https://api.coindesk.com/v1/bpi/historical/close.json";
-        let currencyRequest = await fetch(`${URL}?start=${prevDay}&end=${curDay}`);
-        let {bpi} = await currencyRequest.json();
+        let currencyRequest = await fetch(`${URL}?start=${dates[1]}&end=${dates[0]}`),
+            {bpi} = await currencyRequest.json(),
 
-        let historicChart = {
+        historicChart = {
             labels: [],
             data: [],
             time: period
@@ -113,54 +120,7 @@ class App extends Component {
         });
 
         this.setState(Object.assign(this.state, {historicChart}));
-        console.log(this.state);
     }
-
-    //З колбеками не вийшло((
-    /*onTimeChange(period, callback, call){
-        const data = {historicChart:{
-            value:period
-        }};
-        //console.log("date", this.state, data);
-        this.setState(Object.assign(this.state, data));
-        callback(period, call);
-    };
-
-    getData(date, callback){
-        const YEAR_MILLISECONDS = 31536000000,
-        MONTH_MILLISECONDS = 2628000000,
-        DAY_MILLISECONDS = 86400000;
-
-        let currentMilliseconds = Date.now();
-
-        if(date === "day") {
-            const prevDay = new Date(currentMilliseconds - DAY_MILLISECONDS).toISOString().slice(0, 10);
-            const curDay = new Date (currentMilliseconds).toISOString().slice(0, 10);
-
-            let data = callback(prevDay,curDay);
-            let toState={historicChart:{data}};
-            this.setState(Object.assign(this.state, toState));
-            console.log(this.state);
-        }
-    }
-
-    async request(start, finish){
-        const URL = "https://api.coindesk.com/v1/bpi/historical/close.json";
-        let currencyRequest = await fetch(`${URL}?start=${start}&end=${finish}`),
-            {bpi} = await currencyRequest.json(),
-
-            chart = {
-                labels: [],
-                data: []
-            };
-
-        Object.entries(bpi).map(el => {
-            chart.labels.push(el[0]);
-            chart.data.push(el[1]);
-        });
-        return chart;
-    }*/
-
 
 //------SocketChart------
 
