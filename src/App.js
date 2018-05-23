@@ -23,7 +23,7 @@ class App extends Component {
 //-----CryptoPrices-----
 
     async onChoose(currency){
-        console.log("val", currency);
+        //console.log("val", currency);
         if (currency) {
             const URL = "https://api.coinmarketcap.com/v2/ticker/?limit=6";
             let params = "";
@@ -36,11 +36,10 @@ class App extends Component {
 
             let pricesRequest = await fetch(`${URL}${params}`);
             let res = await pricesRequest.json();
-            console.log(res);
+            //console.log(res);
 
             let currencies = [];
             let prices = [];
-            //let test=[];
 
             Object.values(res.data).map(i => {
                 currencies.push(i.symbol);
