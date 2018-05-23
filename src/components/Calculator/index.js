@@ -7,7 +7,6 @@ import { Form, Field } from 'react-final-form'
 const Calculator = ({ onSend, currency, crypto, count, result }) => (
 
     <div  className="card mt-5">
-        {/*{console.log(currency, crypto, count, result)}*/}
         <h2 className="text-muted text-center">Cryptocurrency Converter Calculator</h2>
         <div className="col-md-6 offset-md-3">
             <Form

@@ -7,7 +7,6 @@ class CryptoPrices extends Component {
     };
 
     renderProps = (array, curr)=> {
-        console.log(array);
         if (array) {
             let result = array.map((item) => {
                 return (<div className="text-center">{item} {curr}</div>)
@@ -15,17 +14,6 @@ class CryptoPrices extends Component {
             return result;
         }
     };
-
-
-/*
-{
-    cryptos.currency == 'USD' && (<div> $</div>)
-}
-*/
-
-
-
-
 
     render() {
         const {cryptos} = this.props;
@@ -50,13 +38,6 @@ class CryptoPrices extends Component {
                         this.renderProps(cryptos.prices, cryptos.currency)
                     }
                 </div>
-
-                {/*{Array.prototype.forEach.call(cryptos.prices,it => {
-                    return(
-                        <div>it</div>
-                    )
-                })
-                }*/}
             </div>
         )
     }
