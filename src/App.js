@@ -151,25 +151,26 @@ class App extends Component {
     }
 
     render(){
+        const {calculator, historicChart, cryptoPrices} = this.state;
         return (
             <div className="container">
                 <h1 className="jumbotron text-muted text-center">Crypto page</h1>
                 <CryptoPrices
                     onChoose={this.onChoose.bind(this)}
-                    cryptos={this.state.cryptoPrices}
+                    cryptos={cryptoPrices}
                 />
                 <Calculator
                     onSend={this.onSubmit.bind(this)}
-                    result={this.state.calculator.result}
-                    count={this.state.calculator.count}
-                    currency={this.state.calculator.currency}
-                    crypto={this.state.calculator.crypto}
+                    result={calculator.result}
+                    count={calculator.count}
+                    currency={calculator.currency}
+                    crypto={calculator.crypto}
                     className="row mt-0"
                 />
                 <HistoricChart
                     onChange={this.onTimeChange.bind(this)}
-                    labels={this.state.historicChart.labels}
-                    data={this.state.historicChart.data}
+                    labels={historicChart.labels}
+                    data={historicChart.data}
                     titleFontSize="30"
                     chartTitle="Historic Bitcoin Dynamic"
                 />
