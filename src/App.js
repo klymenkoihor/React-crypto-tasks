@@ -5,6 +5,7 @@ import Websocket from 'react-websocket';
 import 'bootstrap/dist/css/bootstrap.css';
 import Calculator from './components/Calculator';
 import HistoricChart from './components/HistoricChart';
+import CryptoPrices from './components/CryptoPrices';
 
 class App extends Component {
 
@@ -14,10 +15,49 @@ class App extends Component {
             data:[]
         },
         historicChart:{},
-        calculator:{}
+        calculator:{},
+        cryptoPrices:{
+            //currencies:["BTC", "ETH"], prices:["7657.11", "592.18"]
+        },
     };
 
+//-----CryptoPrices-----
+
+    /*componentWillMount(){
+        this.onChoose('USD');
+    }*/
+
+    async onChoose(currency){
+        console.log("val", currency);
+        if (currency) {
+            const URL = "https://api.coinmarketcap.com/v2/ticker/?limit=6";
+            let params = "";
+
+            if (currency === "EUR") {
+                params = "&convert=EUR"
+            } else if (currency === "UAH") {
+                params = "&convert=UAH"
+            }
+
+            let pricesRequest = await fetch(`${URL}${params}`);
+            let res = await pricesRequest.json();
+            console.log(res);
+
+            let currencies = [];
+            let prices = [];
+            //let test=[];
+
+            Object.values(res.data).map(i => {
+                currencies.push(i.symbol);
+                prices.push(i.quotes[currency].price.toFixed(2));
+            });
+
+            Object.assign(this.state, {cryptoPrices: {currencies, prices, currency}});
+        }
+    }
+
 //------Calculator------
+
 
     async onSubmit(values){
         //console.log("vals", values);
@@ -161,6 +201,10 @@ class App extends Component {
         return (
             <div className="container">
                 <h1 className="jumbotron text-muted text-center">Crypto page</h1>
+                <CryptoPrices
+                    onChoose={this.onChoose.bind(this)}
+                    cryptos={this.state.cryptoPrices}
+                />
                 <Calculator
                     onSend={this.onSubmit.bind(this)}
                     result={this.state.calculator.result}
