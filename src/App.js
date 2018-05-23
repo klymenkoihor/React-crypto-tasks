@@ -17,7 +17,6 @@ class App extends Component {
         historicChart:{},
         calculator:{},
         cryptoPrices:{
-            //currencies:["BTC", "ETH"], prices:["7657.11", "592.18"]
         },
     };
 
