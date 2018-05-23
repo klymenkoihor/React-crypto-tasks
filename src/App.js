@@ -23,10 +23,6 @@ class App extends Component {
 
 //-----CryptoPrices-----
 
-    /*componentWillMount(){
-        this.onChoose('USD');
-    }*/
-
     async onChoose(currency){
         console.log("val", currency);
         if (currency) {
