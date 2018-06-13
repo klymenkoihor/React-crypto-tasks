@@ -53,7 +53,7 @@ class App extends Component {
 
   async onSubmit(values) {
     const { cryptoCurrency, currency, quantity } = values;
-    console.log("destruct", cryptoCurrency, currency, quantity);
+    //console.log("destruct", cryptoCurrency, currency, quantity);
 
     const URL = "https://min-api.cryptocompare.com/data/price";
     let currencyRequest = await fetch(
