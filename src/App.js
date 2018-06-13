@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import SocketChart from "./components/SocketChart";
 import Websocket from "react-websocket";
 import "bootstrap/dist/css/bootstrap.css";
+
+import SocketChart from "./components/SocketChart";
 import Calculator from "./components/Calculator";
 import HistoricChart from "./components/HistoricChart";
 import CryptoPrices from "./components/CryptoPrices";
